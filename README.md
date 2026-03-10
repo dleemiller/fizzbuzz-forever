@@ -42,11 +42,12 @@ for n in range(1, 101):
     print(agent(n))
 
 # Example Output (probably)
-1 1
-2 2
-3 Fizz
-4 4
-5 Buzz
+# 1 1
+# 2 2
+# 3 Fizz
+# 4 4
+# 5 Buzz
+# ...
 ```
 
 ## Robust Testing
