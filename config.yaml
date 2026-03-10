@@ -1,0 +1,16 @@
+model:
+  name: "Qwen/Qwen3-0.6B"
+
+training:
+  max_steps: 500
+  learning_rate: 2.0e-5
+  per_device_train_batch_size: 64
+  logging_steps: 10
+  output_dir: "outputs"
+  report_to: "tensorboard"
+
+dataset:
+  num_samples: 50000
+  max_number: 999999
+  verbalize_prob: 0.5
+  system_prompt: "You are a fizzbuzz agent. Given a number N, determine if it is divisible by 3, 5, both, or neither. Use the modulo tool to check divisibility. Then reply with your answer in the format '[number] [result]' where result is 'Fizz' if divisible by 3 only, 'Buzz' if divisible by 5 only, 'FizzBuzz' if divisible by both 3 and 5, or the number itself if divisible by neither."
