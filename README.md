@@ -3,19 +3,19 @@
 Don't hurt your brain trying to figure out fizzbuzz, make an LLM do it!
 Be done with fizzbuzz forevar.
 
-Step 1: clone repo
-Step 2: train an LLM
-Step 3: hook up to a for loop
-Step 4: $$ profit $$
+1. Clone repo
+2. Train an LLM
+3. Hook up to a for loop
+4. $$ profit $$
 
 ## Quick Start
 
-LOL so easy as long as you have an Blackwell Pro RTX 6000.
+LOL so easy as long as you have a Blackwell Pro RTX 6000.
 If you don't, then you might need to muck around in the `config.yaml`
 and reduce the batch size. Your interviewer will probably understand if you
 need to take a minute to setup a RunPod instance.
 
-```
+```sh
 uv sync
 uv run fizzbuzz-train
 ```
@@ -24,24 +24,22 @@ uv run fizzbuzz-train
 > This is gonna take a few minutes to train, providing a great opportunity to talk
 > about how you could set this up with Agent2Agent protocol.
 
-
 ## Kick Ass Features
 
-- train with ultra efficient Qwen-0.6B model
-- fast fast fast inference with KV caching
-- statistically pretty darn accurate, even with less than an hour of training
-- it uses tools so you know it's probably gonna be right
-- once you drop the phrase *fizzbuzz agentic workflow* on them, you're hired
+- Train with ultra efficient Qwen-0.6B model
+- Fast fast fast inference with KV caching
+- Statistically pretty darn accurate, even with less than an hour of training
+- It uses tools so you know it's probably gonna be right
+- Once you drop the phrase *fizzbuzz agentic workflow* on them, you're hired
 
 ## FizzBuzz ~~Simplified~~ Streamlined
 
-```
-uv run python -c "
+```python
 from fizzbuzz_forever.agent import FizzBuzzAgent
+
 agent = FizzBuzzAgent.load('outputs/final_model')
 for n in range(1, 101):
     print(agent(n))
-"
 ```
 
 ## Robust Testing
@@ -76,7 +74,6 @@ def test_fizzbuzz(agent, n):
         assert label == str(n)
 ```
 
-
 ### What If My Test Fails?
 
 It's going to pass most of the time, so you're probably fine.
@@ -86,5 +83,30 @@ parameterized range.
 
 Otherwise, just tell your devops person to keep running it until it passes.
 That's their job anyway.
+
+## FAQ
+
+### Can I use this in production?
+
+Yes.
+
+
+### Is this better than a for loop?
+
+Are `for` loops agentic?
+Do you want to show your interviewer some 80s shit or impress them?
+
+
+### What if my interviewer asks about Big O notation?
+
+Doesn't apply. We're using tensors here.
+Tell them to get their Little O brain up to date with 2026.
+
+
+### Why not just use ChatGPT?
+
+Fair question. ChatGPT can probably get it right if you provide the tools.
+However, you can deploy this on an `ml.g6.xlarge` instance for cost efficiency.
+
 
 
