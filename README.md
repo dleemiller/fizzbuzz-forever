@@ -10,7 +10,7 @@ Be done with fizzbuzz forevar.
 
 ## Quick Start
 
-Wow, so easy as long as you have a Blackwell Pro RTX 6000.
+Wow, so easy as long as you have a lot of VRAM at your disposal.
 If you don't, then you might need to muck around in the `config.yaml`
 and reduce the batch size. Your interviewer will probably understand if you
 need to take a minute to setup a RunPod instance.
