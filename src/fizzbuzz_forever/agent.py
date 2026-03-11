@@ -1,9 +1,8 @@
-import copy
 import json
 from pathlib import Path
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, DynamicCache
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from fizzbuzz_forever.env import FizzBuzzEnv
 from fizzbuzz_forever.dataset import get_tool_definitions
@@ -19,29 +18,6 @@ class FizzBuzzAgent:
         self.system_prompt = system_prompt
         self.tools = get_tool_definitions()
         self.env = FizzBuzzEnv()
-        self._prefix_cache = None
-        self._prefix_len = 0
-
-    def _ensure_prefix_cache(self):
-        """Compute and cache KV for the system prompt + tool definitions prefix."""
-        if self._prefix_cache is not None:
-            return
-        prefix_ids = self.tokenizer.apply_chat_template(
-            [{"role": "system", "content": self.system_prompt}],
-            tools=self.tools, tokenize=True,
-            add_generation_prompt=False, return_tensors="pt",
-        )
-        if not isinstance(prefix_ids, torch.Tensor):
-            prefix_ids = prefix_ids["input_ids"]
-        prefix_ids = prefix_ids.to(self.model.device)
-        self._prefix_cache = DynamicCache(config=self.model.config)
-        with torch.no_grad():
-            self.model(
-                prefix_ids, past_key_values=self._prefix_cache,
-                cache_position=torch.arange(prefix_ids.shape[1], device=prefix_ids.device),
-                use_cache=True,
-            )
-        self._prefix_len = prefix_ids.shape[1]
 
     @classmethod
     def load(cls, path: str):
@@ -76,7 +52,6 @@ class FizzBuzzAgent:
 
     def __call__(self, n: int, max_iterations: int = 3) -> str:
         """Run fizzbuzz on a number. Returns e.g. '15 FizzBuzz'."""
-        self._ensure_prefix_cache()
         messages = [
             {"role": "system", "content": self.system_prompt},
             {"role": "user", "content": str(n)},
@@ -89,23 +64,13 @@ class FizzBuzzAgent:
             if not isinstance(ids, torch.Tensor):
                 ids = ids["input_ids"]
             ids = ids.to(self.model.device)
-            # Reuse prefix KV cache — only new tokens get processed
-            past_kv = copy.deepcopy(self._prefix_cache)
-            new_ids = ids[:, self._prefix_len:]
-            cache_pos = torch.arange(
-                self._prefix_len, ids.shape[1],
-                dtype=torch.long, device=ids.device,
-            )
-            attn_mask = torch.ones(1, ids.shape[1], dtype=torch.long, device=ids.device)
+            attention_mask = torch.ones_like(ids)
             with torch.no_grad():
                 out = self.model.generate(
-                    new_ids,
-                    attention_mask=attn_mask,
-                    past_key_values=past_kv,
-                    cache_position=cache_pos,
+                    ids, attention_mask=attention_mask,
                     max_new_tokens=200, use_cache=True,
                 )
-            resp = self.tokenizer.decode(out[0][new_ids.shape[-1]:], skip_special_tokens=False)
+            resp = self.tokenizer.decode(out[0][ids.shape[-1]:], skip_special_tokens=False)
             if "<tool_call>" in resp:
                 tc_start = resp.index("<tool_call>") + len("<tool_call>")
                 tc_end = resp.index("</tool_call>")
