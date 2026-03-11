@@ -58,8 +58,6 @@ Can your fizzbuzz do this?
 ```python
 >>> agent("eleventy seven")
 '117 Fizz'
->>> agent("eleven billion")
-'1100000000 Buzz'
 >>> agent("$1 Million")
 '1000000 Buzz'
 >>> agent("ThreEve")
