@@ -17,6 +17,11 @@ dependencies = [
     "jmespath",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
 [project.scripts]
 fizzbuzz-train = "fizzbuzz_forever.train:main"
 
