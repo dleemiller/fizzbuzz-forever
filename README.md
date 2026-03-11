@@ -50,6 +50,26 @@ for n in range(1, 101):
 # ...
 ```
 
+### Not Your Mama's FizzBuzz
+
+Shit. You don't even need numbers anymore.
+Can your fizzbuzz do this?
+
+```python
+>>> agent("eleventy seven")
+'117 Fizz'
+>>> agent("eleven billion")
+'1100000000 Buzz'
+>>> agent("$1 Million")
+'1000000 Buzz'
+>>> agent("ThreEve")
+'3 Fizz'
+>>> agent("Turd Ferguson")
+'3 Fizz'
+>>> agent("$$ Gettin Paid $$")
+'10 Buzz'
+```
+
 ## Robust Testing
 
 It's probably going to work, so you'll totally get hired. But sometimes the interviewer
