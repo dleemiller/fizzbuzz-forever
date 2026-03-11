@@ -53,7 +53,7 @@ def main():
         cfg = yaml.safe_load(f)
 
     model_name = cfg["model"]["name"]
-    tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side="left")
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     patch_no_thinking(tokenizer)
 
     ds_cfg = cfg["dataset"]
@@ -72,13 +72,15 @@ def main():
         train_dataset=sft_dataset,
         args=SFTConfig(
             learning_rate=training_cfg["learning_rate"],
+            lr_scheduler_type=training_cfg.get("lr_scheduler_type", "linear"),
+            warmup_steps=training_cfg.get("warmup_steps", 0),
             max_steps=training_cfg["max_steps"],
             per_device_train_batch_size=training_cfg["per_device_train_batch_size"],
             logging_steps=training_cfg["logging_steps"],
             output_dir=training_cfg["output_dir"],
             report_to=training_cfg["report_to"],
             bf16=True,
-            model_init_kwargs={"torch_dtype": "bfloat16"},
+            model_init_kwargs={"dtype": "bfloat16"},
         ),
     )
 
