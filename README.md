@@ -10,7 +10,7 @@ Be done with fizzbuzz forevar.
 
 ## Quick Start
 
-LOL so easy as long as you have a Blackwell Pro RTX 6000.
+Wow, so easy as long as you have a Blackwell Pro RTX 6000.
 If you don't, then you might need to muck around in the `config.yaml`
 and reduce the batch size. Your interviewer will probably understand if you
 need to take a minute to setup a RunPod instance.
@@ -21,7 +21,7 @@ uv run fizzbuzz-train
 ```
 
 > [!NOTE]
-> This is gonna take a few minutes to train, providing a great opportunity to talk
+> This is gonna take a while to train, providing a great opportunity to talk
 > about how you could set this up with Agent2Agent protocol.
 
 ## Kick Ass Features
