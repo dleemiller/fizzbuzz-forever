@@ -26,11 +26,14 @@ uv run fizzbuzz-train
 
 ## Kick Ass Features
 
-- Train with ultra efficient Qwen-0.6B model
+- Train with ultra efficient Qwen3-0.6B model
 - Fast fast fast inference with KV caching
 - Statistically pretty darn accurate, even with less than an hour of training
 - It uses tools so you know it's probably gonna be right
 - Once you drop the phrase *fizzbuzz agentic workflow* on them, you're hired
+
+> [!WARNING] 
+> 600 Million parameters of raw FizzBuzz-ing power? Not coincidentally, that's numberwang!
 
 ## FizzBuzz ~~Simplified~~ Streamlined
 
@@ -104,7 +107,7 @@ def test_fizzbuzz(agent, n):
 
 It's going to pass most of the time, so you're probably fine.
 But if you're trying to deploy this in a CI/CD pipeline, it might fail on
-occasion. Totally fine, one issue is testing *too much*. Just reduce the
+occasion. No big deal, the issue is usually testing *too much*. Just reduce the
 parameterized range.
 
 Otherwise, just tell your devops person to keep running it until it passes.
