@@ -32,8 +32,8 @@ uv run fizzbuzz-train
 - It uses tools so you know it's probably gonna be right
 - Once you drop the phrase *fizzbuzz agentic workflow* on them, you're hired
 
-> [!WARNING] 
-> 600 Million parameters of raw FizzBuzz-ing power? Not coincidentally, that's numberwang!
+> [!IMPORTANT] 
+> 600 Million parameters of raw fizzbuzz-ing power? That's numberwang.
 
 ## FizzBuzz ~~Simplified~~ Streamlined
 
@@ -70,6 +70,9 @@ Can your fizzbuzz do this?
 >>> agent("$$ Gettin Paid $$")
 '10 Buzz'
 ```
+
+> [!WARNING] 
+> Don't try this on lesser fizzbuzzers in an interview setting.
 
 ## Robust Testing
 
