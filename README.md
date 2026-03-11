@@ -69,6 +69,10 @@ Can your fizzbuzz do this?
 '3 Fizz'
 >>> agent("$$ Gettin Paid $$")
 '10 Buzz'
+>>> agent("I am eleventy-one today!")
+'111 Fizz'
+>>> agent("600 Million, that's numberwang!")
+'600000000 FizzBuzz'
 ```
 
 > [!WARNING] 
